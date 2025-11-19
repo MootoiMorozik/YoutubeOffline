@@ -1,2 +1,7 @@
+RU(Русский):
 Перед запуском сервера нужно установить FFMPEG (инструмент для обработки видео) и добавить в PATH.
+https://www.ffmpeg.org/download.html
+
+EN(English):
+You need to install FFMPEG (a video processing tool) and add it to PATH before starting the server.
 https://www.ffmpeg.org/download.html
