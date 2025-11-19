@@ -1,0 +1,384 @@
+/* ====== GLOBAL STYLES ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.4;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ====== HEADER ====== */
+.header {
+    padding: 8px 12px;
+    background: #111;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+}
+
+.add-form {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.add-form input {
+    flex: 1;
+    padding: 8px 12px;
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    min-width: 0;
+}
+
+.add-form input:focus {
+    border-color: #555;
+}
+
+.add-form button {
+    padding: 8px 16px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.add-form button:hover {
+    background: #ef4444;
+}
+
+/* ====== VIDEO GRID ====== */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.video-card {
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.video-card:hover {
+    transform: translateY(-2px);
+}
+
+.thumb-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+    background: #000;
+}
+
+.thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+}
+
+.title {
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
+}
+
+/* ====== WATCH PAGE ====== */
+.watch {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px;
+}
+
+.video-container {
+    margin-bottom: 16px;
+}
+
+.video-player {
+    width: 100%;
+    border-radius: 8px;
+    background: #000;
+}
+
+.video-placeholder {
+    position: relative;
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.placeholder-thumb {
+    width: 100%;
+    opacity: 0.6;
+}
+
+.placeholder-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+}
+
+.video-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 16px 0;
+    color: #fff;
+}
+
+/* ====== QUALITY SLIDER ====== */
+.quality-section {
+    background: #111;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.quality-section h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.quality-slider {
+    max-width: 400px;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 11px;
+    color: #666;
+}
+
+.slider {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #333;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #dc2626;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #dc2626;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-value {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #dc2626;
+}
+
+/* ====== BUTTONS ====== */
+.download-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 16px 0;
+}
+
+.download-btn:hover {
+    background: #ef4444;
+}
+
+.download-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* ====== STATUS MESSAGES ====== */
+.status {
+    padding: 10px 12px;
+    background: #111;
+    border-radius: 6px;
+    font-size: 13px;
+    margin: 12px 0;
+    border-left: 3px solid #333;
+}
+
+.status.loading {
+    border-left-color: #2563eb;
+    color: #2563eb;
+}
+
+.status.error {
+    border-left-color: #dc2626;
+    color: #dc2626;
+}
+
+.status.success {
+    border-left-color: #16a34a;
+    color: #16a34a;
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+@media (max-width: 768px) {
+    .header {
+        padding: 6px 10px;
+    }
+    
+    .header-content {
+        gap: 8px;
+    }
+    
+    .logo {
+        height: 18px;
+    }
+    
+    .add-form input {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .add-form button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .video-grid {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .watch {
+        padding: 10px;
+    }
+    
+    .video-title {
+        font-size: 14px;
+        margin: 12px 0;
+    }
+    
+    .quality-section {
+        padding: 12px;
+    }
+    
+    .title {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-form {
+        gap: 6px;
+    }
+    
+    .add-form input {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+    
+    .add-form button {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+    
+    .video-grid {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .slider-labels {
+        font-size: 10px;
+    }
+    
+    .slider-value {
+        font-size: 12px;
+    }
+}
