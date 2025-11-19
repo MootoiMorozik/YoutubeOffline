@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ video.title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <a href="/" class="logo">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="YouTube">
+    </a>
+  </div>
+</header>
+
+<div class="watch">
+  <div class="video-container">
+    {% if video_file %}
+    <video class="video-player" controls id="videoPlayer">
+      <source src="{{ url_for('stream_video', filename=video_file) }}" type="video/mp4">
+      Ваш браузер не поддерживает видео.
+    </video>
+    {% else %}
+    <div class="video-placeholder">
+      {% if video.thumbnail_local %}
+      <img class="placeholder-thumb" src="{{ url_for('stream_thumb', filename=video.thumbnail_local) }}" alt="{{ video.title }}">
+      {% else %}
+      <img class="placeholder-thumb" src="{{ video.thumbnail }}" alt="{{ video.title }}">
+      {% endif %}
+      <div class="placeholder-text">Видео будет доступно после скачивания</div>
+    </div>
+    {% endif %}
+  </div>
+  
+  <h1 class="video-title">{{ video.title }}</h1>
+
+  <div class="quality-section">
+    <h3>Выберите качество:</h3>
+    <div class="quality-slider">
+      <div class="slider-labels">
+        <span>144p</span>
+        <span>360p</span>
+        <span>480p</span>
+        <span>720p</span>
+        <span>1080p</span>
+      </div>
+      <input type="range" min="0" max="4" value="3" class="slider" id="qualitySlider">
+      <div class="slider-value" id="sliderValue">720p</div>
+    </div>
+  </div>
+
+  <button class="download-btn" id="downloadBtn" onclick="downloadMP4()">
+    Скачать MP4
+  </button>
+  
+  <div id="status" class="status"></div>
+</div>
+
+<script>
+const qualities = ["144p", "360p", "480p", "720p", "1080p"];
+const qualityValues = ["144", "360", "480", "720", "1080"];
+let selectedQuality = "720";
+
+const slider = document.getElementById('qualitySlider');
+const sliderValue = document.getElementById('sliderValue');
+
+slider.addEventListener('input', function() {
+  const index = parseInt(this.value);
+  selectedQuality = qualityValues[index];
+  sliderValue.textContent = qualities[index];
+});
+
+function setStatus(message, type = '') {
+  const statusEl = document.getElementById('status');
+  statusEl.textContent = message;
+  statusEl.className = 'status ' + type;
+}
+
+function downloadMP4(){
+  setStatus('Скачивание MP4... Это может занять несколько минут', 'loading');
+  
+  const downloadBtn = document.getElementById('downloadBtn');
+  const originalText = downloadBtn.textContent;
+  downloadBtn.disabled = true;
+  downloadBtn.textContent = 'Скачивание...';
+
+  fetch('/download/mp4', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      url: '{{ video.url }}',
+      quality: selectedQuality
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      setStatus(data.message, 'success');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else {
+      throw new Error(data.message);
+    }
+  })
+  .catch(err => {
+    setStatus('Ошибка: ' + err.message, 'error');
+  })
+  .finally(() => {
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = originalText;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const videoPlayer = document.getElementById('videoPlayer');
+  if (videoPlayer) {
+    videoPlayer.play().catch(e => console.log('Autoplay blocked'));
+  }
+});
+</script>
+
+</body>
+</html>
